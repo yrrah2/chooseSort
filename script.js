@@ -95,6 +95,15 @@ const nextStage = () => {
 	display();
 };
 
+const displayString = (array) => {
+	let string = array[0].toString();
+	for (i=1;i<array.length;i++) {
+		string += ", ";
+		string += array[i];
+	}
+	return string
+}
+
 const display = (final = false) => {
 	/*
 	This function simply displays the entire
@@ -107,14 +116,14 @@ const display = (final = false) => {
 	} else {
 		for ( i = 0; i < sortingArray.length; i++ ) {
 			if (typeof(sortingArray[i]) == "number") {
-				displayString += sortingArray[i];
+				displayString += displayString(sortingArray[i]);
 			} else {
 				displayString += "[ (";
-				displayString += sortingArray[i][0];
+				displayString += displayString(sortingArray[i][0]);
 				displayString += ") (";
-				displayString += sortingArray[i][1];
+				displayString += displayString(sortingArray[i][1]);
 				displayString += ") (";
-				displayString += sortingArray[i][2];
+				displayString += displayString(sortingArray[i][2]);
 				displayString += ") ]";
 			}
 			displayString += "&nbsp; &nbsp; &nbsp; &nbsp;";
