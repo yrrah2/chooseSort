@@ -95,7 +95,7 @@ const nextStage = () => {
 	display();
 };
 
-const displayString = (array) => {
+const niceString = (array) => {
 	let string = array[0].toString();
 	for (i=1;i<array.length;i++) {
 		string += ", ";
@@ -116,14 +116,14 @@ const display = (final = false) => {
 	} else {
 		for ( i = 0; i < sortingArray.length; i++ ) {
 			if (typeof(sortingArray[i]) == "number") {
-				displayString += displayString(sortingArray[i]);
+				displayString += niceString(sortingArray[i]);
 			} else {
 				displayString += "[ (";
-				displayString += displayString(sortingArray[i][0]);
+				displayString += niceString(sortingArray[i][0]);
 				displayString += ") (";
-				displayString += displayString(sortingArray[i][1]);
+				displayString += niceString(sortingArray[i][1]);
 				displayString += ") (";
-				displayString += displayString(sortingArray[i][2]);
+				displayString += niceString(sortingArray[i][2]);
 				displayString += ") ]";
 			}
 			displayString += "&nbsp; &nbsp; &nbsp; &nbsp;";
