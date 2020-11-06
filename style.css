@@ -1,3 +1,33 @@
+body {
+	margin: auto;
+	font-family: sans-serif;
+}
+
+.main {
+	padding: 1ex;
+}
+
 #display {
 	white-space: pre-wrap;
+}
+
+.right {
+	float: right;
+	margin: 0;
+	padding: 0;
+}
+
+.menu {
+	background-color: #814f88;
+	padding: 0.7ex;
+}
+
+.menu a, .menu b {
+	padding: 0.5ex 1ex;
+	color: #fff;
+	text-decoration: none;
+}
+
+.menu a:hover {
+	background-color: #a871b0;
 }
