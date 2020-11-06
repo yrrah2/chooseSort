@@ -4,12 +4,11 @@ const preCheck = () => {
 	are do not need user input.
 	*/
 	let partArray = sortingArray[progress];
+	console.log(partArray);
 
 	if (partArray == undefined) {
 		nextStage();
-	} else {
-
-	if (typeof(partArray) != "number") {
+	} else if (typeof(partArray) == "object") {
 		let leftSize = partArray[0].length;
 		let rightSize = partArray[1].length;
 		if ( leftSize == 0 || rightSize == 0) {
@@ -34,8 +33,7 @@ const preCheck = () => {
 				preCheck();
 			}
 		} else {
-			$("#left").text(partArray[0][0]);		// Display the left and right choices
-			$("#right").text(partArray[1][0]);		// for the user to choose from.
+			showOptions(partArray[0][0], partArray[1][0]); // Display the choices
 		};
 	}};
 };
@@ -68,12 +66,12 @@ const nextStage = () => {
 		let value0 = sortingArray[i];
 		let value1 = sortingArray[i+1];
 		if (value1 != undefined) {
-			if (typeof(value0) == "number") {
+			if (typeof(value0) != "object") {
 				value0 = [value0];
 			} else {
 				value0 = value0[2];
 			};
-			if (typeof(value1) == "number") {
+			if (typeof(value1) != "object") {
 				value1 = [value1];
 			} else {
 				value1 = value1[2];
@@ -97,7 +95,9 @@ const nextStage = () => {
 
 const niceString = (array) => {
 	let string = '';
-	if (array.length != 0){
+	if (typeof(array) != "object") {
+		string += array;
+	} else if (array.length != 0) {
 		string += array[0].toString();
 		for (let i=1; i<array.length; i++) {
 			string += ", ";
@@ -135,11 +135,3 @@ const display = () => {
 	
 	$("#display").html(displayString);
 }
-
-const pageload = () => {
-	sortingArray = [10, 3, 4, 6, 11, 2, 12, 9, 5, 7, 13, 8, 1, 14];
-	sortingComplete = false;
-	nextStage();
-};
-
-window.onload = pageload;
