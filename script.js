@@ -19,7 +19,7 @@ const preCheck = () => {
 				if (sortingArray.length == 1) {
 					$("#left").css("display", "none");
 					$("#right").css("display", "none");
-					display();
+					display(true);
 				} else {
 					progress++;
 					preCheck();
@@ -100,8 +100,12 @@ const mergeSort = () => {
 	};
 };
 
-const display = () => {
+const display = (final = false) => {
 	let displayString = '';
+	
+	if (final) {
+		displayString += sortingArray[0][2];
+	} else {
 	for ( i = 0; i < sortingArray.length; i++ ) {
 		if (typeof(sortingArray[i]) == "number") {
 			displayString += sortingArray[i];
@@ -122,7 +126,6 @@ const display = () => {
 
 const pageload = () => {
 	sortingArray = [10, 3, 4, 6, 11, 2, 12, 9, 5, 7, 13, 8, 1, 14];
-	sortingIncomplete = false;
 	nextStage();
 };
 
