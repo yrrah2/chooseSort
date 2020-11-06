@@ -17,7 +17,7 @@ const preCheck = () => {
 				if (sortingArray.length == 1) {				// If the sorting array has one element
 					$("#left").css("display", "none");		// and it has no left or right components
 					$("#right").css("display", "none");		// then the whole list is completely sorted.
-					display(true);					// Hide the buttons and give final display.
+					sortingComplete = true;				// Hide the buttons and set sorting to complete.
 				} else {
 					progress++;					// If the current array has no left or right
 					preCheck();					// elements: it is sorted. Move to next array.
@@ -96,25 +96,28 @@ const nextStage = () => {
 };
 
 const niceString = (array) => {
-	let string = array[0].toString();
-	for (i=1;i<array.length;i++) {
-		string += ", ";
-		string += array[i];
+	let string = '';
+	if (array.length != 0){
+		string += array[0].toString();
+		for (let i=1; i<array.length; i++) {
+			string += ", ";
+			string += array[i];
+		}
 	}
 	return string
 }
 
-const display = (final = false) => {
+const display = () => {
 	/*
 	This function simply displays the entire
 	sorting array in a nicer way to understand.
 	*/
 	let displayString = '';
 	
-	if (final) {					// If the display is the final display
-		displayString += sortingArray[0][2];	// it can be simpler.
+	if (sortingComplete) {						// If the display is the final display
+		displayString += niceString(sortingArray[0][2]);	// it can be simpler.
 	} else {
-		for ( i = 0; i < sortingArray.length; i++ ) {
+		for (let i = 0; i < sortingArray.length; i++ ) {
 			if (typeof(sortingArray[i]) == "number") {
 				displayString += niceString(sortingArray[i]);
 			} else {
@@ -135,6 +138,7 @@ const display = (final = false) => {
 
 const pageload = () => {
 	sortingArray = [10, 3, 4, 6, 11, 2, 12, 9, 5, 7, 13, 8, 1, 14];
+	sortingComplete = false;
 	nextStage();
 };
 
