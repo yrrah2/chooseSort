@@ -17,10 +17,12 @@ const preCheck = () => {
 			if ( leftSize == 0 && rightSize == 0) {
 				console.log("middle");
 				if (sortingArray.length == 1) {
+					$("#left").css("display", "none");
+					$("#right").css("display", "none");
 					display();
 				} else {
-				progress++;
-				preCheck();
+					progress++;
+					preCheck();
 				}
 			} else if (leftSize == 0) {
 				partArray[2] = partArray[2].concat(partArray[1]);
@@ -114,14 +116,13 @@ const display = () => {
 		}
 		displayString += "&nbsp; &nbsp; &nbsp; &nbsp;";
 	};
-
-	displayString += "\n\nProgress: " + progress
-
+	
 	$("#display").html(displayString);
 }
 
 const pageload = () => {
-	sortingArray = [10, 3, 4, 6, 11, 2, 12, 9, 5, 7, 13, 8, 1, 14]
+	sortingArray = [10, 3, 4, 6, 11, 2, 12, 9, 5, 7, 13, 8, 1, 14];
+	sortingIncomplete = false;
 	nextStage();
 };
 
