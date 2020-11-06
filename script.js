@@ -1,10 +1,9 @@
 const preCheck = () => {
-
-	console.log("start");
-
+	/*
+	This function completes tasks that
+	are do not need user input.
+	*/
 	let partArray = sortingArray[progress];
-
-	
 
 	if (partArray == undefined) {
 		nextStage();
@@ -15,14 +14,13 @@ const preCheck = () => {
 		let rightSize = partArray[1].length;
 		if ( leftSize == 0 || rightSize == 0) {
 			if ( leftSize == 0 && rightSize == 0) {
-				console.log("middle");
-				if (sortingArray.length == 1) {
-					$("#left").css("display", "none");
-					$("#right").css("display", "none");
-					display(true);
+				if (sortingArray.length == 1) {				// If the sorting array has one element
+					$("#left").css("display", "none");		// and it has no left or right components
+					$("#right").css("display", "none");		// then the whole list is completely sorted.
+					display(true);					// Hide the buttons and give final display.
 				} else {
-					progress++;
-					preCheck();
+					progress++;					// If the current array has no left or right
+					preCheck();					// elements: it is sorted. Move to next array.
 				}
 			} else if (leftSize == 0) {
 				partArray[2] = partArray[2].concat(partArray[1]);
@@ -36,22 +34,22 @@ const preCheck = () => {
 				preCheck();
 			}
 		} else {
-			$("#left").text(partArray[0][0]);
-			$("#right").text(partArray[1][0]);
+			$("#left").text(partArray[0][0]);		// Display the left and right choices
+			$("#right").text(partArray[1][0]);		// for the user to choose from.
 		};
-		
 	}};
-
-	console.log("end");
-
 };
 
 const makeChoice = (choice) => {
-	let partArray = sortingArray[progress];
-	if ( choice == "left" ) {
-		partArray[2].push(partArray[0].shift());
-	} else {
-		partArray[2].push(partArray[1].shift());
+	/*
+	This triggers only when the buttons are pressed.
+	It rearranges the sorting arrays and displays them.
+	*/
+	let partArray = sortingArray[progress];			
+	if ( choice == "left" ) {				// Move the first element of the list
+		partArray[2].push(partArray[0].shift());	// from the chosen list to the final
+	} else {						// sorted list and remove it from the 
+		partArray[2].push(partArray[1].shift());	// chosen list.
 	}
 	sortingArray[progress] = partArray;
 	preCheck();
@@ -59,6 +57,11 @@ const makeChoice = (choice) => {
 };
 
 const nextStage = () => {
+	/*
+	This function takes the list of sorted arrays and
+	combines them into groups of twos. These grouped
+	arrays must be further sorted into one bigger array.
+	*/
 	let newArray = [];
 	for (i = 0; i < sortingArray.length; i += 2) {
 		let tempArray = [];
@@ -92,19 +95,15 @@ const nextStage = () => {
 	display();
 };
 
-const mergeSort = () => {
-	for (i = 0; i < sortingArray.length; i++) {
-		if (typeof(sArray[i]) != "number") {
-			updateArray(sortingArray[i]);
-		}
-	};
-};
-
 const display = (final = false) => {
+	/*
+	This function simply displays the entire
+	sorting array in a nicer way to understand.
+	*/
 	let displayString = '';
 	
-	if (final) {
-		displayString += sortingArray[0][2];
+	if (final) {					// If the display is the final display
+		displayString += sortingArray[0][2];	// it can be simpler.
 	} else {
 		for ( i = 0; i < sortingArray.length; i++ ) {
 			if (typeof(sortingArray[i]) == "number") {
