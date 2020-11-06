@@ -1,40 +1,67 @@
-const updateArray = (partArray) => {
-	let leftSize = partArray[0].length;
-	let rightSize = partArray[1].length;
+const preCheck = () => {
+
+	console.log("start");
+
+	let partArray = sortingArray[progress];
+
 	
 
-	if ( leftSize == 0 || rightSize == 0) {
-		console.log("Left: "+leftSize+", Right: "+rightSize);
-		if ( leftSize == 0 && rightSize == 0) {
-		} else if (leftSize == 0) {
-			partArray[2] = partArray[2].concat(partArray[1]);
-			partArray[1] = [];
-		} else {
-			partArray[2] = partArray[2].concat(partArray[0]);
-			partArray[0] = [];
-		}
-
+	if (partArray == undefined) {
+		nextStage();
 	} else {
-		
-		if ( partArray[0][0] < partArray[1][0] ) {
-			partArray[2].push(partArray[0].shift());
+
+	if (typeof(partArray) != "number") {
+		let leftSize = partArray[0].length;
+		let rightSize = partArray[1].length;
+		if ( leftSize == 0 || rightSize == 0) {
+			if ( leftSize == 0 && rightSize == 0) {
+				console.log("middle");
+				if (sortingArray.length == 1) {
+					display();
+				} else {
+				progress++;
+				preCheck();
+				}
+			} else if (leftSize == 0) {
+				partArray[2] = partArray[2].concat(partArray[1]);
+				partArray[1] = [];
+				sortingArray[progress] = partArray;
+				preCheck();
+			} else {
+				partArray[2] = partArray[2].concat(partArray[0]);
+				partArray[0] = [];
+				sortingArray[progress] = partArray;
+				preCheck();
+			}
 		} else {
-			partArray[2].push(partArray[1].shift());
-		}
-	}
+			$("#left").text(partArray[0][0]);
+			$("#right").text(partArray[1][0]);
+		};
+		
+	}};
+
+	console.log("end");
+
 };
 
-const nextStage = (sArray) => {
+const makeChoice = (choice) => {
+	let partArray = sortingArray[progress];
+	if ( choice == "left" ) {
+		partArray[2].push(partArray[0].shift());
+	} else {
+		partArray[2].push(partArray[1].shift());
+	}
+	sortingArray[progress] = partArray;
+	preCheck();
+	display();
+};
+
+const nextStage = () => {
 	let newArray = [];
-	for (i = 0; i < sArray.length; i += 2) {
+	for (i = 0; i < sortingArray.length; i += 2) {
 		let tempArray = [];
-		let value0 = sArray[i];
-		let value1 = sArray[i+1];
-
-
-
-
-
+		let value0 = sortingArray[i];
+		let value1 = sortingArray[i+1];
 		if (value1 != undefined) {
 			if (typeof(value0) == "number") {
 				value0 = [value0];
@@ -55,20 +82,47 @@ const nextStage = (sArray) => {
 		};
 
 	};
-	return newArray;
+
+	sortingArray = newArray;
+	progress = 0;
+
+	preCheck();
+	display();
 };
 
-const mergeSort = (sArray) => {
-	for (i = 0; i < sArray.length; i++) {
+const mergeSort = () => {
+	for (i = 0; i < sortingArray.length; i++) {
 		if (typeof(sArray[i]) != "number") {
-			updateArray(sArray[i]);
+			updateArray(sortingArray[i]);
 		}
 	};
 };
 
+const display = () => {
+	let displayString = '';
+	for ( i = 0; i < sortingArray.length; i++ ) {
+		if (typeof(sortingArray[i]) == "number") {
+			displayString += sortingArray[i];
+		} else {
+			displayString += "[ (";
+			displayString += sortingArray[i][0];
+			displayString += ") (";
+			displayString += sortingArray[i][1];
+			displayString += ") (";
+			displayString += sortingArray[i][2];
+			displayString += ") ]";
+		}
+		displayString += "&nbsp; &nbsp; &nbsp; &nbsp;";
+	};
+
+	displayString += "\n\nProgress: " + progress
+
+	$("#display").html(displayString);
+}
 
 const pageload = () => {
-	x = [1,3,5,4,2,7,6,9,8];
+	sortingArray = [10, 3, 4, 6, 11, 2, 12, 9, 5, 7, 13, 8, 1, 14]
+	nextStage();
 };
 
 window.onload = pageload;
