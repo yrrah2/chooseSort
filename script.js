@@ -35,7 +35,7 @@ const preCheck = () => {
 		} else {
 			showOptions(partArray[0][0], partArray[1][0]); // Display the choices
 		};
-	}};
+	};
 };
 
 const makeChoice = (choice) => {
