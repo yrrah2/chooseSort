@@ -1,3 +1,17 @@
+const niceString = (array) => {
+	let string = '';
+	if ( typeof(array) != "object" ) {
+		string += array;
+	} else if ( array.length != 0 ) {
+		string += array[0].toString();
+		for ( let i = 1; i < array.length; i++ ) {
+			string += ", ";
+			string += array[i];
+		}
+	}
+	return string;
+};
+
 const showOptions = (left, right) => {
 	$("#left").text(left);
 	$("#right").text(right);

@@ -4,9 +4,9 @@ const preCheck = () => {
 	are do not need user input.
 	*/
 	let partArray = sortingArray[progress];
-	console.log(partArray);
 
 	if (partArray == undefined) {
+		console.log("Hello hello hello");
 		nextStage();
 	} else if (typeof(partArray) == "object") {
 		let leftSize = partArray[0].length;
@@ -35,6 +35,8 @@ const preCheck = () => {
 		} else {
 			showOptions(partArray[0][0], partArray[1][0]); // Display the choices
 		};
+	} else {
+		nextStage();
 	};
 };
 
@@ -93,20 +95,6 @@ const nextStage = () => {
 	display();
 };
 
-const niceString = (array) => {
-	let string = '';
-	if (typeof(array) != "object") {
-		string += array;
-	} else if (array.length != 0) {
-		string += array[0].toString();
-		for (let i=1; i<array.length; i++) {
-			string += ", ";
-			string += array[i];
-		}
-	}
-	return string
-}
-
 const display = () => {
 	/*
 	This function simply displays the entire
@@ -118,7 +106,7 @@ const display = () => {
 		displayString += niceString(sortingArray[0][2]);	// it can be simpler.
 	} else {
 		for (let i = 0; i < sortingArray.length; i++ ) {
-			if (typeof(sortingArray[i]) == "number") {
+			if (typeof(sortingArray[i]) != "object") {
 				displayString += niceString(sortingArray[i]);
 			} else {
 				displayString += "[ (";

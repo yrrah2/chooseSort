@@ -1,3 +1,22 @@
+const niceString = (array) => {
+	let string = '';
+	let finalString = '">image</a>';
+	if ( typeof(array) != "object" ) {
+		string += '<a href="';
+		string += array;
+	} else if (array.length != 0) {
+		string += '<a href="';
+		string += array[0].toString();
+		for ( let i = 1; i < array.length; i++ ) {
+			string += '">image</a>, <a href="';
+			string += array[i];
+		}
+	} else {
+		finalString = '';
+	};
+	return string + finalString;
+}
+
 const showOptions = (left, right) => {
 	$("#left").attr("src", left);
 	$("#right").attr("src", right);
