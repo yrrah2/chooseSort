@@ -5,10 +5,7 @@ const preCheck = () => {
 	*/
 	let partArray = sortingArray[progress];
 
-	if (partArray == undefined) {
-		console.log("Hello hello hello");
-		nextStage();
-	} else if (typeof(partArray) == "object") {
+	if (typeof(partArray) == "object") {
 		let leftSize = partArray[0].length;
 		let rightSize = partArray[1].length;
 		if ( leftSize == 0 || rightSize == 0) {
@@ -116,10 +113,10 @@ const display = () => {
 				displayString += ") (";
 				displayString += niceString(sortingArray[i][2]);
 				displayString += ") ]";
-			}
+			};
 			displayString += "&nbsp; &nbsp; &nbsp; &nbsp;";
-		}
+		};
 	};
 	
 	$("#display").html(displayString);
-}
+};
